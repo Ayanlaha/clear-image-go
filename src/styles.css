@@ -19,6 +19,7 @@
  */
 
 @theme inline {
+  --font-sans: "Manrope", "Segoe UI", sans-serif;
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -59,29 +60,33 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+  --color-surface: var(--surface);
+  --color-surface-elevated: var(--surface-elevated);
 }
 
 :root {
-  --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.129 0.042 264.695);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.129 0.042 264.695);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.129 0.042 264.695);
-  --primary: oklch(0.208 0.042 265.755);
-  --primary-foreground: oklch(0.984 0.003 247.858);
-  --secondary: oklch(0.968 0.007 247.896);
-  --secondary-foreground: oklch(0.208 0.042 265.755);
-  --muted: oklch(0.968 0.007 247.896);
-  --muted-foreground: oklch(0.554 0.046 257.417);
-  --accent: oklch(0.968 0.007 247.896);
-  --accent-foreground: oklch(0.208 0.042 265.755);
+  --radius: 0.5rem;
+  --background: oklch(0.145 0.025 264);
+  --foreground: oklch(0.97 0.008 250);
+  --card: oklch(0.205 0.035 258);
+  --card-foreground: oklch(0.97 0.008 250);
+  --popover: oklch(0.205 0.035 258);
+  --popover-foreground: oklch(0.97 0.008 250);
+  --primary: oklch(0.51 0.25 276);
+  --primary-foreground: oklch(0.99 0.004 245);
+  --secondary: oklch(0.255 0.035 258);
+  --secondary-foreground: oklch(0.97 0.008 250);
+  --muted: oklch(0.25 0.025 258);
+  --muted-foreground: oklch(0.7 0.025 255);
+  --accent: oklch(0.84 0.155 195);
+  --accent-foreground: oklch(0.15 0.025 264);
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(0.984 0.003 247.858);
-  --border: oklch(0.929 0.013 255.508);
-  --input: oklch(0.929 0.013 255.508);
-  --ring: oklch(0.704 0.04 256.788);
+  --border: oklch(0.31 0.035 258 / 80%);
+  --input: oklch(0.31 0.035 258);
+  --ring: oklch(0.84 0.155 195);
+  --surface: oklch(0.18 0.032 260);
+  --surface-elevated: oklch(0.225 0.038 258);
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
   --chart-3: oklch(0.398 0.07 227.392);
@@ -140,5 +145,60 @@
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
+    font-family: var(--font-sans);
+    letter-spacing: 0;
+    scroll-behavior: smooth;
   }
+
+  button, a, summary { outline-offset: 3px; }
+}
+
+@utility bg-gradient-brand {
+  background-image: linear-gradient(115deg, oklch(0.51 0.25 276), oklch(0.84 0.155 195));
+}
+
+@utility shadow-brand {
+  box-shadow: 0 12px 35px color-mix(in oklab, var(--accent) 15%, transparent);
+}
+
+@utility text-gradient {
+  background-image: linear-gradient(100deg, oklch(0.66 0.22 275), var(--accent));
+  background-clip: text;
+  color: transparent;
+}
+
+@utility section-label {
+  color: var(--accent);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+@utility workspace-shell {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--card);
+  padding: clamp(0.75rem, 2vw, 1.5rem);
+  box-shadow: 0 30px 80px oklch(0.05 0.02 264 / 45%);
+}
+
+@utility checkerboard {
+  background-color: oklch(0.82 0.005 260);
+  background-image: linear-gradient(45deg, oklch(0.93 0.005 260) 25%, transparent 25%), linear-gradient(-45deg, oklch(0.93 0.005 260) 25%, transparent 25%), linear-gradient(45deg, transparent 75%, oklch(0.93 0.005 260) 75%), linear-gradient(-45deg, transparent 75%, oklch(0.93 0.005 260) 75%);
+  background-size: 24px 24px;
+  background-position: 0 0, 0 12px, 12px -12px, -12px 0;
+}
+
+.hero-grid {
+  background-image: linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: linear-gradient(to bottom, black, transparent 75%);
+}
+
+.processing-bar { width: 70%; animation: process 1.3s ease-in-out infinite alternate; }
+@keyframes process { from { transform: translateX(-50%); } to { transform: translateX(70%); } }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; }
 }
