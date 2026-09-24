@@ -2,13 +2,10 @@ import { useRef, useState, type ChangeEvent, type DragEvent } from "react";
 import {
   ArrowRight,
   Check,
-  Clock3,
   CloudUpload,
-  Code2,
   Download,
   Eye,
   Github,
-  ImageIcon,
   Instagram,
   Layers3,
   LoaderCircle,
